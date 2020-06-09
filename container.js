@@ -3,7 +3,10 @@ const path = require("path");
 
 const container = dependable.container();
 
-const simpleDependincies = [["_", "lodash"]];
+const simpleDependincies = [
+  ["_", "lodash"],
+  ["passport", "passport"],
+];
 
 simpleDependincies.forEach(function (val) {
   container.register(val[0], function () {
