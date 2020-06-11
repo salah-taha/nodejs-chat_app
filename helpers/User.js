@@ -1,5 +1,7 @@
 "use strict";
 
+const { body, validationResult } = require("express-validator");
+
 module.exports = function () {
   return {
     SignUpValidation: (req, res, next) => {

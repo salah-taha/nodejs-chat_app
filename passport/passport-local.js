@@ -65,7 +65,7 @@ passport.use(
         }
         const messages = [];
         if (!user || !user.validUserPassword(password)) {
-          messages.push("Wrong Info");
+          messages.push("Email or Password is not correct!");
           return done(null, false, req.flash("error", messages));
         }
         return done(null, user);

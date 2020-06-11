@@ -13,6 +13,8 @@ const passport = require("passport");
 const container = require("./container");
 
 container.resolve(function (users, _) {
+  mongoose.set("useFindAndModify", false);
+  mongoose.set("useCreateIndex", true);
   mongoose.Promise = global.Promise;
   mongoose.connect("mongodb://localhost/footballkik", {
     useNewUrlParser: true,
@@ -37,6 +39,7 @@ container.resolve(function (users, _) {
 
   function ConfigureExpress(app) {
     require("./passport/passport-local");
+    require("./passport/passport-facebook");
     app.use(express.static("public"));
     app.use(cookieParser());
     app.set("view engine", "ejs");
