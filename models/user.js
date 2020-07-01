@@ -12,7 +12,6 @@ const userSchema = Schema({
   facebook: { type: String, default: "" },
   fbTokens: Array,
   google: { type: String, default: "" },
-  googleTokens: Array,
 });
 
 userSchema.methods.encryptPassword = function (password) {

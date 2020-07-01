@@ -1,7 +1,7 @@
 "use strict";
 
 const passport = require("passport");
-const FacebookStrategy = require("passport-facebook").Strategy;
+const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const User = require("../models/user");
 const secret = require("../secret/secretFile");
 
@@ -16,16 +16,15 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use(
-  new FacebookStrategy(
+  new GoogleStrategy(
     {
-      clientID: secret.facebook.clientID,
-      clientSecret: secret.facebook.clienrSecret,
-      profileFields: ["email", "displayName", "photos"],
-      callbackURL: "http://localhost:3000/auth/facebook/callback",
+      clientID: secret.google.clientID,
+      clientSecret: secret.google.clientSecret,
+      callbackURL: "http://localhost:3000/auth/google/callback",
       passReqToCallback: true,
     },
-    (req, token, refreshToken, profile, done) => {
-      User.findOne({ facebook: profile.id }, (err, user) => {
+    (req, accessToken, refreshToken, profile, done) => {
+      User.findOne({ google: profile.id }, (err, user) => {
         if (err) {
           return done(err);
         }
@@ -33,14 +32,15 @@ passport.use(
           return done(null, user);
         }
         const newUser = new User();
-        newUser.facebook = profile.id;
+        newUser.google = profile.id;
         newUser.fullname = profile.displayName;
-        newUser.email = profile._json.email;
-        newUser.userImage =
-          "https://graph.facebook.com/" + profile.id + "/picture?type=large";
-        newUser.fbTokens.push({ token: token });
+        newUser.email = profile.emails[0].value;
+        newUser.userImage = profile.photos[0].value;
 
         newUser.save((err) => {
+          if (err) {
+            return done(err);
+          }
           return done(null, newUser);
         });
       });

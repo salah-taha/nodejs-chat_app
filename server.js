@@ -12,7 +12,7 @@ const passport = require("passport");
 
 const container = require("./container");
 
-container.resolve(function (users, _) {
+container.resolve(function (users, _, admin) {
   mongoose.set("useFindAndModify", false);
   mongoose.set("useCreateIndex", true);
   mongoose.Promise = global.Promise;
@@ -33,6 +33,7 @@ container.resolve(function (users, _) {
 
     const router = require("express-promise-router")();
     users.SetRouting(router);
+    admin.SetRouting(router);
 
     app.use(router);
   }
@@ -40,6 +41,7 @@ container.resolve(function (users, _) {
   function ConfigureExpress(app) {
     require("./passport/passport-local");
     require("./passport/passport-facebook");
+    require("./passport/passport-google");
     app.use(express.static("public"));
     app.use(cookieParser());
     app.set("view engine", "ejs");
