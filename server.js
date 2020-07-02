@@ -3,16 +3,16 @@ const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const http = require("http");
 const cookieParser = require("cookie-parser");
-// const validator = require("express-validator");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
 const passport = require("passport");
+const socketIO = require("socket.io");
 
 const container = require("./container");
 
-container.resolve(function (users, _, admin, home) {
+container.resolve(function (users, _, admin, home, group) {
   mongoose.set("useFindAndModify", false);
   mongoose.set("useCreateIndex", true);
   mongoose.Promise = global.Promise;
@@ -25,6 +25,7 @@ container.resolve(function (users, _, admin, home) {
   function SetupExpress() {
     const app = express();
     const server = http.createServer(app);
+    const io = socketIO(server);
     server.listen(3000, () => {
       console.log("listening... ");
     });
@@ -35,6 +36,7 @@ container.resolve(function (users, _, admin, home) {
     users.SetRouting(router);
     admin.SetRouting(router);
     home.SetRouting(router);
+    group.SetRouting(router);
 
     app.use(router);
   }
