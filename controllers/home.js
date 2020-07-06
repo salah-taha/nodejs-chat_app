@@ -45,6 +45,7 @@ module.exports = function (async, Club, _) {
             title: "Footballkik - salah",
             data: dataChunk,
             countries: sortedCountries,
+            user: req.user,
           });
         }
       );

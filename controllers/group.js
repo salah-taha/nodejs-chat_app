@@ -7,7 +7,8 @@ module.exports = function (Club) {
       const name = req.params.name;
       res.render("groupchat/group", {
         title: "Footballkik - Group",
-        name: name,
+        groupName: name,
+        user: req.user,
       });
     },
   };
