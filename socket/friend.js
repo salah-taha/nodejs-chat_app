@@ -1,1 +1,17 @@
-module.exports = function (io) {};
+module.exports = function (io) {
+  io.on("connection", (socket) => {
+    socket.on("joinRequest", (myRequest, callback) => {
+      socket.join(myRequest.sender);
+      callback();
+    });
+
+    socket.on("friendRequest", (friend, callback) => {
+      io.to(friend.reciver).emit("newFriendRequest", {
+        from: friend.sender,
+        to: friend.reciver,
+      });
+
+      callback();
+    });
+  });
+};
