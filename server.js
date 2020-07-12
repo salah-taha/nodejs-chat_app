@@ -35,6 +35,7 @@ container.resolve(function (users, _, admin, home, group) {
 
     require("./socket/groupchat")(io, Users);
     require("./socket/friend")(io);
+    require("./socket/globalroom")(io);
 
     const router = require("express-promise-router")();
     users.SetRouting(router);
