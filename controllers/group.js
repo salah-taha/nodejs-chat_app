@@ -145,12 +145,12 @@ module.exports = function (Users, async) {
               Users.updateOne(
                 {
                   _id: req.user._id,
-                  "requset.userId": { $eq: req.body.user_Id },
+                  "request.userId": { $eq: req.body.user_id },
                 },
                 {
                   $pull: {
                     request: {
-                      userId: req.body.user_Id,
+                      userId: req.body.user_id,
                     },
                   },
                   $inc: { totalRequest: -1 },
@@ -162,11 +162,12 @@ module.exports = function (Users, async) {
             }
           },
 
-          async function (callback) {
+          function (callback) {
             if (req.body.user_id) {
+              console.log("'" + req.body.user_id + "'");
               Users.updateOne(
                 {
-                  _id: req.body.user_Id,
+                  _id: req.body.user_id,
                   "sentRequest.username": { $eq: req.user.username },
                 },
                 {
