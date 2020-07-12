@@ -66,11 +66,11 @@
                                 <% _.forEach(chunk,function(group){ %>
                                 <form action="/home" method="post" id="favourite">
                                     <div class="item col-md-4">
-                                        <a style="text-decoration: none;" href="/group/<%= group.name %> ">
+                                        <a style="text-decoration: none;" href="/group/<%= group.name %>">
                                             <div class="thumbnail">
-                                                <img alt="" src="/uploads/<%= group.image %> ">
+                                                <img alt="" src="/uploads/<%= group.image %>">
                                                 <div class="caption">
-                                                    <h4><%= group.name %> </h4>
+                                                    <h4><%= group.name %> (<%= group.fans.length %>)</h4>
 
                                                     <div class="row">
                                                         <div class="col-xs-12 col-md-6">
