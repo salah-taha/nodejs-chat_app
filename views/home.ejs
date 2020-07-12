@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <%-// include('partials/navbar.ejs') %>
+    <%- include('partials/navbar.ejs') %>
 
     <div class="col-md-12">
         <form action="#" method="post">
@@ -60,11 +60,11 @@
 
                 <div class="col-md-9">
                     <div>
-                        <% _.forEach(data,function (chunk) {   %>
+                        <% _.forEach(chunks,function (chunk) {   %>
                         <div class="category-list">
                             <div class="row">
                                 <% _.forEach(chunk,function(group){ %>
-                                <form action="#" method="post" id="add-fav">
+                                <form action="/home" method="post" id="favourite">
                                     <div class="item col-md-4">
                                         <a style="text-decoration: none;" href="/group/<%= group.name %> ">
                                             <div class="thumbnail">
@@ -80,6 +80,10 @@
                                                         </div>
 
                                                         <div class="col-xs-12 col-md-6">
+                                                            <input type="hidden" name="id" id="id"
+                                                                value="<%= group._id %>">
+                                                            <input type="hidden" name="clubName" id="club_Name"
+                                                                value="<%= group.name %>">
                                                             <button class="btn add-fav">
                                                                 Add To Favorite
                                                             </button>
@@ -104,6 +108,9 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/group/sendRequest.js"></script>
+    <script src="/js/home.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>

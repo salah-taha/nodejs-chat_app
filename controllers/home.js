@@ -1,6 +1,6 @@
 const { chunk } = require("lodash");
 
-module.exports = function (async, Club, _) {
+module.exports = function (async, Club, _, Users) {
   return {
     SetRouting: function (router) {
       router.get("/home", this.homePage);
@@ -27,10 +27,18 @@ module.exports = function (async, Club, _) {
               }
             );
           },
+          function (callback) {
+            Users.findOne({ username: req.user.username })
+              .populate("request.userId")
+              .exec((err, result) => {
+                callback(err, result);
+              });
+          },
         ],
         (err, results) => {
           const allTeams = results[0];
           const countries = results[1];
+          const user = results[2];
 
           const dataChunk = [];
           const chunkSize = 3;
@@ -43,7 +51,8 @@ module.exports = function (async, Club, _) {
 
           return res.render("home", {
             title: "Footballkik - salah",
-            data: dataChunk,
+            chunks: dataChunk,
+            data: user,
             countries: sortedCountries,
             user: req.user,
           });
