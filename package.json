@@ -19,7 +19,7 @@
   "homepage": "https://github.com/salah-taha/chat_app-node-js#readme",
   "dependencies": {
     "async": "^3.2.0",
-    "aws-sdk": "^2.708.0",
+    "aws-sdk": "^2.814.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
